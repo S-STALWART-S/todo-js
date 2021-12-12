@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            min-width: 250px;
+        }
+
+        .inputNewTodo {
+            width: 95%;
+            padding: 10px;
+            font-size: 16px;
+            border: 0.1px solid black;
+            border-radius: 3px;
+            background-color: rgb(228, 227, 227);
+            text-decoration-color: black;
+
+        }
+
+        /* Include the padding and border in an element's total width and height */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Remove margins and padding from the list */
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Style the list items */
+        ul li {
+            cursor: pointer;
+            position: relative;
+            padding: 12px 8px 12px 40px;
+            list-style-type: none;
+            background: #eee;
+            font-size: 18px;
+            border-radius: 3px;
+            margin-top: 5px;
+            transition: 0.2s;
+
+            /* make the list items unSelectable */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Set all odd list items to a different color (zebra-stripes) */
+        ul li:nth-child(odd) {
+            background: #f9f9f9;
+        }
+
+        /* Darker background-color on hover */
+        ul li:hover {
+            background: rgb(251, 251, 224);
+            transition: 0.35s;
+
+        }
+
+        /* When clicked on, add a background color and strike out text */
+        ul li.checked {
+            background: #888;
+            color: #fff;
+            text-decoration: line-through;
+        }
+
+        /* Add a "checked" mark when clicked on */
+        ul li.checked::before {
+            content: '';
+            position: absolute;
+            border-color: #fff;
+            border-style: solid;
+            border-width: 0 2px 2px 0;
+            top: 10px;
+            left: 16px;
+            transform: rotate(45deg);
+            height: 15px;
+            width: 7px;
+
+        }
+
+        .mother {
+            padding: 7px;
+            margin: 20px auto;
+            min-width: 800px;
+            max-width: 900px;
+            border-radius: 10px;
+            background-color: rgb(97, 91, 91);
+        }
+
+        /* Style the close button */
+        .close {
+            position: relative;
+            float: right;
+            padding: 5px 5px 5px 5px;
+            margin-top: -7px;
+            margin-right: 5px;
+            border-radius: 6px;
+            border: rgb(185, 185, 185) 0.01px solid;
+
+
+        }
+
+        .close:hover {
+            background-color: #f44336;
+            color: white;
+            transition: 0.3s;
+            border-radius: 8px;
+        }
+
+        /* Style the header */
+        .header {
+            position: relative;
+            background-color: #f44336;
+            padding: 30px 40px;
+            color: rgb(0, 0, 0);
+            text-align: center;
+        }
+
+        /* Clear floats after the header */
+        .header:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Style the input */
+        .input {
+            margin: 0;
+            border: none;
+            border-radius: 0;
+            width: 75%;
+            padding: 10px;
+            float: left;
+            font-size: 16px;
+            border-radius: 3px;
+            background-color: rgb(207, 207, 207);
+            text-decoration-color: black;
+
+        }
+
+        input:hover {
+            background-color: white;
+            color: rgb(0, 0, 0);
+            transition: 0.3s;
+            border-radius: 4px;
+        }
+
+        /* Style the "Add" button */
+        .addBtn {
+            padding: 10px;
+            width: 6.5%;
+            background: #d9d9d9;
+            color: #555;
+            float: left;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 5px;
+            margin-right: 21px;
+            transition: 0.3s;
+            border-radius: 3px;
+            height: 39px;
+
+        }
+
+        .addBtn:hover {
+            background-color: #bbb;
+        }
+
+        .addBtn2 {
+            position: absolute;
+            padding: 10px;
+            width: 5.5%;
+            height: 39px;
+            background: #d9d9d9;
+            color: #555;
+            float: left;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: -68px;
+            transition: 0.3s;
+            border-radius: 3px;
+        }
+
+        .addBtn3 {
+            position: absolute;
+            padding: 10px;
+            width: 5.5%;
+            height: 39px;
+            background: #d9d9d9;
+            color: #555;
+            float: left;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: -16px;
+            transition: 0.3s;
+            border-radius: 3px;
+        }
+
+        .addBtn2:hover {
+            background-color: #bbb;
+        }
+
+        .addBtn3:hover {
+            background-color: #bbb;
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.indigo-pink.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Todo App</title>
+</head>
+
+<body>
+
+    <div class="mother">
+        <div id="myDIV" class="header">
+            <h2 style="margin:5px">My Todo List</h2>
+
+            <div id="searchPanel" style="display: block;">
+                <input type="text" class="input" id="searchInput" placeholder="Type to search your todo...">
+                <span id="addButton" title="Add new todo" class="addBtn material-icons">add</span>
+            </div>
+
+            <div id="addPanel" style="display: none;">
+                <input type="text" class="input" id="addInput" placeholder="Type to add your task...">
+                <span id="confirmButton" title="Confirm to add new todo "
+                    class="addBtn material-icons">assignment_turned_in
+                </span>
+
+            </div>
+            <span id="sortName" title="Sort your todo by Name " class="addBtn2 material-icons">sort_by_alpha
+            </span>
+
+            <span id="sortDate" title="Sort your todo by Date " class="addBtn3 material-icons">date_range
+            </span>
+        </div>
+        <ul id="contentUL">
+        </ul>
+        <dialog style="width: 422px;height: 240px;" class="mdl-dialog">
+            <div id="dialogEmptyTodo">
+                <h4 style="text-align: center;  font-size:20px;" class="mdl-dialog__title">Todo can not be
+                    empty! 😕 </h4>
+                <div class="mdl-dialog__content">
+                    <h6 style="text-align: center;">
+                        Enter your todo please...
+                    </h6>
+                </div>
+                <div class="mdl-dialog__actions">
+                    <button type="button" id="okClose" class="mdl-button">Ok</button>
+                </div>
+            </div>
+
+            <div id="dialogNewTodo">
+                <h4 style="text-align: center;  font-size:20px;" class="mdl-dialog__title">enter your new
+                    todo
+                </h4>
+                <div class="mdl-dialog__content">
+                    <input type="text" class="inputNewTodo" name="" id="inputNewData">
+                </div>
+                <div class="mdl-dialog__actions">
+                    <button type="button" id="okSave" style="float: left; position: relative;margin-left: -100px;"
+                        class="mdl-button">Save</button>
+                </div>
+            </div>
+        </dialog>
+    </div>
+    <script src="./todo.js"></script>
+    <script defer src="https://code.getmdl.io/1.1.1/material.min.js"></script>
+
+</body>
+
+</html>
